@@ -10,3 +10,18 @@ function obtenerProducto() {
 };
 
 obtenerProducto();
+
+filtro.addEventListener('submit', buscarItem);
+
+function buscarProducto(e){
+  var texto = e.target.value.toLowerCase();
+  var items = lista.getElementsByTagName('li');
+  Array.from(items).forEach(function(item){
+      var itemNombre = item.firstChild.textContent;
+      if(itemNombre.toLowerCase().indexOf(texto) != -1){
+          item.style.display = 'block';
+      } else{
+          item.style.display = 'none';
+      }
+  });
+}
