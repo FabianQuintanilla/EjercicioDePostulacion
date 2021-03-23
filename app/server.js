@@ -17,17 +17,14 @@ app.use(cors(corsOptions));
 var mysql = require('mysql');
 
 
-var con = mysql.createConnection({
+var con = mysql.createPool({
     host: "mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com",
     user: "bsale_test",
     password: "bsale_test",
     database: "bsale_test"
   });
   
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-  });
+con.query('select 1 + 1', (err, rows) => { /* */ });
 
 app.post('/api/productos', function (req, res) {
     const consulta = 'Select * from product';

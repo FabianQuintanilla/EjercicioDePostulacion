@@ -1,0 +1,21 @@
+div.col-md-2 {
+    border-style: solid;
+    border-color: black;
+    height: 400px;
+}
+
+img{
+    width: 250px;
+    height: 250px;
+}
+
+.btnAgregar{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pagination{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 18px;
+}
