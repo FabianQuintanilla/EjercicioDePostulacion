@@ -1,5 +1,7 @@
 var lista = document.getElementById('items');
 var filtro = document.getElementById('filtro');
+var categoriaFiltro = document.getElementById('catgProduct');
+
 
 function obtenerProducto() {
     var xhttp = new XMLHttpRequest();
@@ -8,7 +10,6 @@ function obtenerProducto() {
         if (this.readyState == 4 && this.status == 200) {
           console.log(JSON.parse(this.responseText));
           var respuesta = JSON.parse(this.responseText);
-          
           for(var i = 0; i<=respuesta.length -1; i++){
             var product = respuesta[i];
             var div = document.createElement('div');
@@ -49,3 +50,44 @@ function buscarProducto(e){
       }
   });
 }
+
+categoriaFiltro.addEventListener('change', productosCategoria);
+
+function productosCategoria(){
+  var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "http://localhost:8080/api/productos", true);
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var respuesta = JSON.parse(this.responseText);
+          var cat = categoriaFiltro.value;
+          lista.innerHTML = "";      
+          for(var i = 0; i<=respuesta.length -1; i++){
+            var product = respuesta[i];
+            if(product.category == cat){
+            var div = document.createElement('div');
+            div.className = 'col-md-2 col-md-4 col-xs-9';            
+            var imagenProducto = document.createElement('img');
+            imagenProducto.src = `${product.url_image}`;
+            var botonAgregar = document.createElement('button');
+            botonAgregar.className = 'btn btn btn-lg btn-primary btnAgregar';
+            botonAgregar.appendChild(document.createTextNode('Agregar'));
+            var precioProducto = `$ ${product.price}`;
+            div.appendChild(document.createTextNode(product.name));
+            div.appendChild(document.createElement('br'));
+            div.appendChild(document.createTextNode(precioProducto));
+            div.appendChild(document.createElement('br'));
+            div.appendChild(imagenProducto);
+            div.appendChild(document.createElement('br'));
+            div.appendChild(botonAgregar);
+            lista.appendChild(div);
+          }
+        }
+        if(cat == 0){
+          obtenerProducto();
+        }
+        }
+      };
+    xhttp.send();
+  
+};
+
