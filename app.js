@@ -2,7 +2,6 @@ var lista = document.getElementById('items');
 var filtro = document.getElementById('filtro');
 var categoriaFiltro = document.getElementById('catgProduct');
 
-
 function obtenerProducto() {
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "http://localhost:8080/api/productos", true);
